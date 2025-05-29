@@ -1,31 +1,18 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import yt_dlp
-import tempfile
-import os
-import logging
-from typing import Optional
+from fastapi import FastAPI
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+app = FastAPI(title="YouTube Audio Extractor", version="1.0.0")
 
-app = FastAPI(
-    title="YouTube Audio Extractor",
-    description="Extract audio from YouTube videos using yt-dlp",
-    version="1.0.0"
-)
+@app.get("/")
+async def root():
+    return {"message": "YouTube Audio Extractor Service", "status": "running"}
 
-class VideoRequest(BaseModel):
-    url: str
-    format: Optional[str] = "mp3"
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
 
-class VideoResponse(BaseModel):
-    status: str
-    title: str
-    duration: float
-    audio_url: str
-    video_id: str
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8001)    video_id: str
 
 @app.get("/")
 async def root():
