@@ -12,20 +12,7 @@ async def health():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)    video_id: str
-
-@app.get("/")
-async def root():
-    return {"message": "YouTube Audio Extractor Service", "status": "running"}
-
-@app.get("/health")
-async def health():
-    return {"status": "healthy"}
-
-@app.post("/extract-audio", response_model=VideoResponse)
-async def extract_audio(request: VideoRequest):
-    try:
-        logger.info(f"Processing video: {request.url}")
+    uvicorn.run(app, host="0.0.0.0", port=8001)    logger.info(f"Processing video: {request.url}")
         
         # Configure yt-dlp options
         ydl_opts = {
